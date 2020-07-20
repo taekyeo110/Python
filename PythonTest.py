@@ -204,6 +204,40 @@ with open('james.p','rb') as file:
 
     
 '''
+'''
 
+word = input('단어를 입력하세여: ')
+print(word == word[::-1])
+
+word = 'level'
+list(word) == list(reversed(word))
+
+'''
+
+
+'''
+text = 'Hello'
+
+for i in range(len(text)-1):
+    print(text[i], text[i+1],sep='')
+
+text = 'this is python script'
+words = text.split()
+
+for i in range(len(words)-1):
+    print(words[i], words[i+1])
+
+
+text = 'hello'
+
+two_gram = zip(text,text[1:])
+for i in two_gram:
+    print(i[0],i[1],sep='')
+
+text = 'this is python script'
+words = text.split()
+list(zip(words, words[1:]))
+
+'''
 
 
