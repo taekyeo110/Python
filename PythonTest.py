@@ -241,3 +241,32 @@ list(zip(words, words[1:]))
 '''
 
 
+
+
+
+
+'''
+함수
+'''
+
+
+
+
+def hello():
+    print('Hello,world!')
+hello()
+
+def add(a,b):
+    print(a+b)
+add(10,20)
+
+def add(a,b):
+    return a+b
+x = add(10,20)
+print(x)
+
+def add_sub(a,b):
+    return a+b, a-b
+x,y=add_sub(10,20)
+print(x)
+print(y)
