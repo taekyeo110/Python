@@ -329,7 +329,7 @@ james.greeting()
 
 
 '''
-34. 클래스
+클래스
 '''
 
 
@@ -353,30 +353,10 @@ class person:
         self.__wallet -= amount
         print('이제 {0}원 남았네욤.'.format(self.__wallet))
 
-    '''
-    '''
-    def pay(self,amount):
-        self.__wallet -= amount
-        print('이제 {0}원 남았네요.'.format(self.__wallet))
-    '''
-    '''
-
 maria = person('마리아',20,'서울시 서초구 반포동',10000)
 maria.greeting()
 
-'''
-'''
-maria.__wallet -= 10000
-'''
-'''
-
 maria.pay(13000)
-
-'''
-'''
-maria.pay(3000)
-'''
-'''
 
 print('이름:',maria.name)
 print('나이:',maria.age)
@@ -387,3 +367,23 @@ print('주소:',maria.address)
 '''
 
 
+'''
+클래스 method 사용
+'''
+
+
+class Person:
+    bag = []
+
+    def put_bag(self, stuff):
+        self.bag.append(stuff)
+
+
+james = Person()
+james.put_bag('책')
+
+maria = Person()
+maria.put_bag('열쇠')
+
+print(james.bag)
+print(maria.bag)
