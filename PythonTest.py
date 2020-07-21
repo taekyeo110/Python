@@ -376,7 +376,7 @@ class Person:
     bag = []
 
     def put_bag(self, stuff):
-        self.bag.append(stuff)
+        Person.bag.append(stuff)
 
 
 james = Person()
