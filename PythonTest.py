@@ -286,5 +286,104 @@ x=10
 y=20
 add(x,y)
 
+
+
+a=[1,2,3,4,5,6,7,8,9,10]
+print(list(map(lambda x: str(x) if x%3 == 0 else x, a)))
+
+
+def f(x,y):
+    return x+y
+a= [1,2,3,4,5]
+from functools import reduce
+print(reduce(f,a))
+
+
+
+def calc():
+    a=3
+    b=5
+    def mul_add(x):
+        return a*x+b
+    return mul_add
+
+c = calc()
+print(c(1),c(2),c(3),c(4),c(5))
+
+
+
 '''
+'''
+
+class person:
+    def __init__(self):
+        self.hello = '안녕하세요.'
+
+    def greeting(self):
+        print(self.hello)
+
+james = person()
+james.greeting()
+
+'''
+
+
+'''
+34. 클래스
+'''
+
+
+'''
+
+class person:
+    def __init__(self,name,age,address,wallet):
+        self.hello = '안녕하세염'
+        self.name = name
+        self.age = age
+        self.address = address
+        self.__wallet = wallet
+    
+    def greeting(self):
+        print('{0} 저는 {1}입니다.'.format(self.hello, self.name))
+
+    def pay(self,amount):
+        if amount > self.__wallet:
+            print('돈이 모자라네...')
+            return
+        self.__wallet -= amount
+        print('이제 {0}원 남았네욤.'.format(self.__wallet))
+
+    '''
+    '''
+    def pay(self,amount):
+        self.__wallet -= amount
+        print('이제 {0}원 남았네요.'.format(self.__wallet))
+    '''
+    '''
+
+maria = person('마리아',20,'서울시 서초구 반포동',10000)
+maria.greeting()
+
+'''
+'''
+maria.__wallet -= 10000
+'''
+'''
+
+maria.pay(13000)
+
+'''
+'''
+maria.pay(3000)
+'''
+'''
+
+print('이름:',maria.name)
+print('나이:',maria.age)
+print('주소:',maria.address)
+
+
+
+'''
+
 
