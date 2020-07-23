@@ -475,5 +475,135 @@ class PersonList:
         self.Person_list.append(Person)
 
 
+class Person:
+    def __init__(self):
+        print('Person __init__')
+        self.hello = '안녕하세요'
+
+class Student(Person):
+    def __init__(self):
+        print('Student __init__')
+        super().__init__()
+        self.school = '파이썬 코딩 도장'
+
+james = Student()
+print(james.school)
+print(james.hello)
+
+
+class Person:
+    def __init__(self):
+        print('Person __init__')
+        self.hello = '안녕하세요'
+
+class Student(Person):
+    pass
+
+james = Student()
+print(james.hello)
+
+
+class A:
+    def greeting(self):
+        print('A')
+
+class B(A):
+    def greeting(self):
+        print('B')
+
+class C(A):
+    def greeting(self):
+        print('C')
+
+class D(B,C):
+    pass
+
+x=D()
+x.greeting()
+print(D.mro())
+
+
+from abc import *
+
+class StudentBase(metaclass=ABCMeta):
+    @abstractmethod
+    def study(self):
+        pass
+
+    @abstractmethod
+    def go_to_school(self):
+        pass
+
+class Student(StudentBase):
+    def study(self):
+        print('공부하기')
+
+    def go_to_school(self):
+        print('학교가기')
+
+james = Student()
+james.study()
+james.go_to_school()
+
+
+
+class AdvancedList(list):
+    def replace(self, old, new):
+        while old in self:
+            self[self.index(old)] = new
+
+x = AdvancedList([1,2,3,1,2,3,1,2,3])
+x.replace(1,100)
+print(x)
+
+
+
+import math
+
+class Point2D:
+    def __init__(self,x,y):
+        self.x = x
+        self.y = y
+
+p1 = Point2D(x=30,y=20)
+p2 = Point2D(x=60,y=50)
+
+print('p1: {} {}'.format(p1.x,p1.y))
+print('p2: {} {}'.format(p2.x,p2.y))
+
+a = p2.x - p1.x
+b = p2.y - p1.y
+
+
+c = math.sqrt(math.pow(a,2) + math.pow(b,2))
+print(c)
+
+
+try:
+    x = int(input('나눌 숫자를 입력하세요: '))
+    y = 10 / x
+    print(y)
+except:
+    print('예외가 발생했습니다.')
+
+
+
+y=[10,20,30]
+
+try:
+    index, x = map(int, input('인덱스와 나눌 숫자를 입력하세요: ').split())
+    z = y[index] / x
+except ZeroDivisionError as e:
+    print('숫자를 0으로 나눌 수 없습니다.',e)
+except IndexError as e:
+    print('잘못된 인덱스입니다.',e)
+else:
+    print(z)
+finally:
+    print('코드 실행이 끝났습니다.')
+    
+    
+
 '''
+
 
