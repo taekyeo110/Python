@@ -369,14 +369,15 @@ print('주소:',maria.address)
 
 '''
 클래스 method 사용
-'''
+
 
 
 class Person:
-    bag = []
+    def __init__(self):
+        self.bag = []
 
     def put_bag(self, stuff):
-        Person.bag.append(stuff)
+        self.bag.append(stuff)
 
 
 james = Person()
@@ -387,3 +388,92 @@ maria.put_bag('열쇠')
 
 print(james.bag)
 print(maria.bag)
+
+
+class Knight:
+    __item_limit = 10
+
+    def print_item_limit(self):
+        print(Knight.__item_limit)
+
+
+x = Knight()
+x.print_item_limit()
+
+print(Knight.__item_limit)
+
+
+class Calc:
+    @staticmethod
+    def add(a,b):
+        print(a+b)
+
+    @staticmethod
+    def mul(a,b):
+        print(a*b)
+    
+Calc.add(10,20)
+Calc.mul(10,20)
+
+
+class Person:
+    count = 0
+
+    def __init__(self):
+        Person.count += 1
+
+    @classmethod
+    def print_count(cls):
+        print('{0}명 생성되었습니다.'.format(cls.count))
+
+james = Person()
+maria = Person()
+tk = Person()
+mj = Person()
+
+Person.print_count()
+
+
+class Person:
+    count = 0
+
+    def __init__(self):
+        Person.count += 1
+
+    @classmethod
+    def print_count(cls):
+        print('{0}명 생성되었습니다.'.format(cls.count))
+
+james = Person()
+maria = Person()
+
+Person.print_count()
+
+
+class Person:
+    def greeting(self):
+        print('안녕하세요')
+
+class Student(Person):
+    def study(self):
+        print('공부하기')
+
+james = Student()
+james.greeting()
+james.study()
+
+
+class Person:
+    def greeting(self):
+        print('안녕하세요')
+
+class PersonList:
+    def __init__(self):
+        self.Person_list = []
+    
+    def append_person(self,Person):
+        self.Person_list.append(Person)
+
+
+'''
+
