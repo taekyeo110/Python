@@ -101,7 +101,7 @@ class TextCNN(object):
             self.accuracy = tf.reduce_mean(tf.cast(correct_predictions, "float"), name="accuracy")
 
 # data loading
-data_path = 'C:/Users/ratsgo/GoogleDrive/내폴더/textmining/data/watcha_movie_review_spacecorrected.csv'
+data_path = 'C:/pypypy'
 contents, points = tool.loading_rdata(data_path, eng=True, num=True, punc=False)
 contents = tool.cut(contents,cut=2)
 
