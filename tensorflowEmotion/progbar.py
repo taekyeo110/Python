@@ -9,3 +9,4 @@ class ProgBar():
             self.progress += 1
             print('\r[%s%s]' %('#'*self.progress, ' '*(20-self.progress)), end='')
         self.count += 1
+
