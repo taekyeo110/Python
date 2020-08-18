@@ -1,4 +1,4 @@
-from sklearn.grad_search import GridSearchCV
+from sklearn.model_selection import GridSearchCV
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.pipeline import Pipeline
 from sklearn.linear_model import LogisticRegression

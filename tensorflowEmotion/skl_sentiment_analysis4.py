@@ -25,3 +25,4 @@ while True:
         break
     example = [txt]
     print('예측: %s\n확률: %.3f%%' %(label[clf.predict(example)[0]],np.max(clf.predict_proba(example))*100))
+    
