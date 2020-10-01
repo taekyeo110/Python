@@ -1,9 +1,17 @@
 import requests
 from bs4 import BeautifulSoup
-#from datetime import datetime
 import sys
+import string
+import pandas as pd
+import numpy as np
+import csv
 
 sys.stdout = open('C:/py36/example.csv','w',newline="")
+
+df = pd.DataFrame(columns=['nickname','review','score'])
+
+f=0
+
 
 def get_data(url):
     resp = requests.get(url)
@@ -14,19 +22,18 @@ def get_data(url):
     for li in lis:
         befornickname = li.find('dl')
         nickname = befornickname.findAll('a')[0].find('span').getText()
-        #created_at = datetime.strptime(li.find('dt').findAll('em')[-1].getText(), "%Y.%m.%d %H:%M")
-
         review_text = li.find('p').getText()
         score = li.find('em').getText()
-        #btn_likes = li.find('div', {'class': 'btn_area'}).findAll('span')
-        #like = btn_likes[1].getText()
-        #dislike = btn_likes[3].getText()
+        nickname2 = str(nickname).replace('\n','').replace('\r','').replace('\t','').replace(',','') + ','
+        review_text2 = str(review_text).replace('\n','').replace('\r','').replace('\t','').replace(',','') + ','
 
-        #watch_movie = li.find('span', {'class':'ico_viewer'})
+        row = [nickname2,review_text2,score]
 
-        # 간단하게 프린트만 했습니다.
-        #print(nickname, review_text, score, like, dislike, created_at, watch_movie and True or False)
-        print(nickname, review_text, score)
+        global df
+        df = df.append(pd.Series(row, index=df.columns),ignore_index=True)
+
+        print(nickname2, review_text2, end="")
+        print(score)
 
 #url 연결하기
 test_url = 'https://movie.naver.com/movie/bi/mi/pointWriteFormList.nhn?code=136990&type=after'
@@ -37,10 +44,11 @@ total_count = int(result.replace(',', ''))
         
 for i in range(1, int(total_count / 10) + 1):
     url = test_url + '&page=' + str(i)
-    print('url: "' + url + '" is parsing....')
+    #print('url: "' + url + '" is parsing....')
     get_data(url)
 
+#df.set_index('nickname',inplace=True)
+#pd.set_option('display.max_rows',len(df))
+#print(df)
 
-
-
-#df에 넣어서 해보자.
+#df.to_csv("C:/py36/example.csv", mode='a', header=False)
