@@ -9,38 +9,38 @@ import os
 
 #지역별 data셋 불러오기
 
-jongro_df = pd.read_csv('C:/py36/data_jongro.csv')
-'''
-yongsan_df = pd.read_csv('C:/py36/data_yongsan.csv')
-sungdong_df = pd.read_csv('C:/py36/data_sungdong.csv')
-gwangjin_df = pd.read_csv('C:/py36/data_gwangjin.csv')
-dongdaemun_df = pd.read_csv('C:/py36/data_dongdaemun.csv')
-junglang_df = pd.read_csv('C:/py36/data_junglang.csv')
-sungbuk_df = pd.read_csv('C:/py36/data_sungbuk.csv')
-gangbuk_df = pd.read_csv('C:/py36/data_gangbuk.csv')
-dobong_df = pd.read_csv('C:/py36/data_dobong.csv')
-nowon_df = pd.read_csv('C:/py36/data_nowon.csv')
-uenpueng_df = pd.read_csv('C:/py36/data_uenpueng.csv')
-sudaemun_df = pd.read_csv('C:/py36/data_sudaemun.csv')
-mapo_df = pd.read_csv('C:/py36/data_mapo.csv')
-yangchun_df = pd.read_csv('C:/py36/data_yangchun.csv')
-gangsu_df = pd.read_csv('C:/py36/data_gangsu.csv')
-guro_df = pd.read_csv('C:/py36/data_guro.csv')
-gumchun_df = pd.read_csv('C:/py36/data_gumchun.csv')
-yungdungpo_df = pd.read_csv('C:/py36/data_yungdungpo.csv')
-dongjak_df = pd.read_csv('C:/py36/data_dongjak.csv')
-gwanak_df = pd.read_csv('C:/py36/data_gwanak.csv')
-seocho_df = pd.read_csv('C:/py36/data_seocho.csv')
-gangnam_df = pd.read_csv('C:/py36/data_gangnam.csv')
-songpa_df = pd.read_csv('C:/py36/data_songpa.csv')
-gangdong_df = pd.read_csv('C:/py36/data_gangdong.csv')
-'''
+#jongro_df = pd.read_csv('C:/py36/laundry_review/data_jongro.csv')
 
-t1=len(jongro_df)
-df = jongro_df
+yongsan_df = pd.read_csv('C:/py36/laundry_review/data_yongsan_final.csv')
+sungdong_df = pd.read_csv('C:/py36/laundry_review/data_sungdong_final.csv')
+gwangjin_df = pd.read_csv('C:/py36/laundry_review/data_gwangjin_final.csv')
+dongdaemun_df = pd.read_csv('C:/py36/laundry_review/data_dongdaemun_final.csv')
+junglang_df = pd.read_csv('C:/py36/laundry_review/data_junglang_final.csv')
+sungbuk_df = pd.read_csv('C:/py36/laundry_review/data_sungbuk_final.csv')
+gangbuk_df = pd.read_csv('C:/py36/laundry_review/data_gangbuk_final.csv')
+dobong_df = pd.read_csv('C:/py36/laundry_review/data_dobong_final.csv')
+nowon_df = pd.read_csv('C:/py36/laundry_review/data_nowon_final.csv')
+uenpueng_df = pd.read_csv('C:/py36/laundry_review/data_uenpueng_final.csv')
+sudaemun_df = pd.read_csv('C:/py36/laundry_review/data_sudaemun_final.csv')
+mapo_df = pd.read_csv('C:/py36/laundry_review/data_mapo_final.csv')
+yangchun_df = pd.read_csv('C:/py36/laundry_review/data_yangchun_final.csv')
+gangsu_df = pd.read_csv('C:/py36/laundry_review/data_gangsu_final.csv')
+guro_df = pd.read_csv('C:/py36/laundry_review/data_guro_final.csv')
+gumchun_df = pd.read_csv('C:/py36/laundry_review/data_gumchun_final.csv')
+yungdungpo_df = pd.read_csv('C:/py36/laundry_review/data_yungdungpo_final.csv')
+dongjak_df = pd.read_csv('C:/py36/laundry_review/data_dongjak_final.csv')
+gwanak_df = pd.read_csv('C:/py36/laundry_review/data_gwanak_final.csv')
+seocho_df = pd.read_csv('C:/py36/laundry_review/data_seocho_final.csv')
+gangnam_df = pd.read_csv('C:/py36/laundry_review/data_gangnam_final.csv')
+songpa_df = pd.read_csv('C:/py36/laundry_review/data_songpa_final.csv')
+gangdong_df = pd.read_csv('C:/py36/laundry_review/data_gangdong_final.csv')
+
+
+#t1=len(jongro_df)
+#df = jongro_df
 #t1 = 1000
 
-'''
+
 t2=len(yongsan_df)
 t3=len(sungdong_df)
 t4=len(gwangjin_df)
@@ -64,7 +64,7 @@ t21=len(seocho_df)
 t22=len(gangnam_df)
 t23=len(songpa_df)
 t24=len(gangdong_df)
-'''
+
 
 i=1
 
@@ -94,7 +94,7 @@ first_item_list = ['면세탁','드라이크리닝','운동화세탁','명품크
 
 #데이터 프레임들에 값 넣어주기
 
-for i in range(t1):
+for i in range(t2):
     year = 2020
     month = random.randint(8, 9)
     day = random.randint(1, 28)
@@ -209,17 +209,17 @@ for i in range(t1):
 
 #데이터프레임들을 붙이기
 
-df = pd.concat([df,adf], axis=1)
-df = pd.concat([df,bdf], axis=1)
-df = pd.concat([df,cdf], axis=1)
-df = pd.concat([df,fdf], axis=1)
-df = pd.concat([df,gdf], axis=1)
-df = pd.concat([df,hdf], axis=1)
-df = pd.concat([df,idf], axis=1)
-df = pd.concat([df,ddf], axis=1)
-df = pd.concat([df,edf], axis=1)
+yongsan_df = pd.concat([yongsan_df,adf], axis=1)
+yongsan_df = pd.concat([yongsan_df,bdf], axis=1)
+yongsan_df = pd.concat([yongsan_df,cdf], axis=1)
+yongsan_df = pd.concat([yongsan_df,fdf], axis=1)
+yongsan_df = pd.concat([yongsan_df,gdf], axis=1)
+yongsan_df = pd.concat([yongsan_df,hdf], axis=1)
+yongsan_df = pd.concat([yongsan_df,idf], axis=1)
+yongsan_df = pd.concat([yongsan_df,ddf], axis=1)
+yongsan_df = pd.concat([yongsan_df,edf], axis=1)
 
-df.index = jongro_df['사업장명']            #인덱스에 사업장명을 넣기
-final_df = df.drop(df.columns[[0]],axis='columns')      #인덱스에 사업장명을 넣었기 때문에 열에 있는 사업장명을 제거
+yongsan_df.index = yongsan_df['사업장명']            #인덱스에 사업장명을 넣기
+yongsan_final_df = yongsan_df.drop(yongsan_df.columns[[0]],axis='columns')      #인덱스에 사업장명을 넣었기 때문에 열에 있는 사업장명을 제거
 
-final_df.to_csv('C:/py36/data_jongro_2.csv',encoding='utf-8-sig')
+yongsan_final_df.to_csv('C:/py36/laundry_review/data_yongsan_final_2.csv',encoding='utf-8-sig')
