@@ -9,7 +9,7 @@ TextRank 는 키워드 추출 기능과 핵심 문장 추출 기능, 두 가지�
 sents 는 list of str 형식의 문장들이며, tokenize 는 str 형식의 문장을 list of str 형식의 단어열로 나누는 토크나이저 입니다.
 
 
-'''
+```
 from collections import Counter
 
 def scan_vocabulary(sents, tokenize, min_count=2):
@@ -18,7 +18,7 @@ def scan_vocabulary(sents, tokenize, min_count=2):
   idx_to_vocab = [w for w, _ in sorted(counter.items(), key=lambda x:-x[1])]
   vocab_to_idx = {vocab:idx for idx, vocab in enumerate(idx_to_vocab)}
   return idx_to_vocab, vocab_to_idx
-'''
+```
     
   
 TextRank 에서 두 단어 간의 유사도를 정의하기 위해서는 두 단어의 co-occurrence 를 계산해야 합니다. 
