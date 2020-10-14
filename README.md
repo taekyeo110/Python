@@ -21,13 +21,33 @@ def scan_vocabulary(sents, tokenize, min_count=2):
 ```
     
   
-TextRank 에서 두 단어 간의 유사도를 정의하기 위해서는 두 단어의 co-occurrence 를 계산해야 합니다. 
-Co-occurrence 는 문장 내에서 두 단어의 간격이 window 인 횟수입니다. 논문에서는 2 ~ 8 사이의 값을 이용하기를 추천하였습니다. 
-여기에 하나 더하여, 문장 내에 함께 등장한 모든 경우를 co-occurrence 로 정의하기 위하여 window 에 -1 을 입력할 수 있도록 합니다. 
-또한 그래프가 지나치게 dense 해지는 것을 방지하고 싶다면 min_coocurrence 를 이용하여 그래프를 sparse 하게 만들 수도 있습니다.
+TextRank 에서 두 단어 간의 유사도를 정의하기 위해서는 두 단어의 co-occurrence(유사도) 를 계산해야 합니다. 
+Co-occurrence 는 문장 내에서 두 단어의 간격이 window 인 횟수입니다. 논문에서는 2 ~ 8 사이의 값을 이용하기를 추천하였습니다.
+window = N이라 하면, 특정 단어에서 좌,우로 N개의 단어를 참고하게 됩니다.
+문장 내에 함께 등장한 모든 경우를 co-occurrence 로 정의하기 위하여 window 에 -1 을 입력합니다. 
+min_coocurrence의 값은 최소 유사도로서, min_coocurrence의 값보다 작은 유사도를 가진 단어는 matrix에 포함되지 못하도록 합니다.
+dict_to_mat 함수는 dict of dict 형식의 그래프를 아래와 같은 scipy의 sparse matrix로 변환하는 함수입니다.
+
+![dd](https://user-images.githubusercontent.com/17975141/96014510-6f8cca80-0e81-11eb-9236-def236b11750.png)
+
+또한 그래프가 지나치게 dense(밀집)해지는 것을 방지하고 싶다면 min_coocurrence 를 크게하여 그래프를 sparse(드문드문)하게 만들 수도 있습니다.
+
+![graph_wordgraph](https://user-images.githubusercontent.com/17975141/96010842-394d4c00-0e7d-11eb-88c1-f8ed16bc6634.png)
+
+counter를 int형 defaultdict으로 만들어줍니다.
+그 후 토큰들의 값을 순서대로 넣은 vocab_to_idx의 값을 vocabs에 넣습니다.
 
 ```
 from collections import defaultdict
+from scipy.sparse import csr_matrix
+
+def dict_to_mat(d, n_rows, n_cols):
+    rows, cols, data = [], [], []
+    for (i, j), v in d.items():
+        rows.append(i)
+        cols.append(j)
+        data.append(v)
+    return csr_matrix((data, (rows, cols)), shape=(n_rows, n_cols))
 
 def cooccurrence(tokens, vocab_to_idx, window=2, min_cooccurrence=2):
     counter = defaultdict(int)
@@ -50,19 +70,6 @@ def cooccurrence(tokens, vocab_to_idx, window=2, min_cooccurrence=2):
     return dict_to_mat(counter, n_vocabs, n_vocabs)
 ```
 
-dict_to_mat 함수는 dict of dict 형식의 그래프를 scipy 의 sparse matrix 로 변환하는 함수입니다.
-
-```
-from scipy.sparse import csr_matrix
-
-def dict_to_mat(d, n_rows, n_cols):
-    rows, cols, data = [], [], []
-    for (i, j), v in d.items():
-        rows.append(i)
-        cols.append(j)
-        data.append(v)
-    return csr_matrix((data, (rows, cols)), shape=(n_rows, n_cols))
-```
 
 TextRank 에서는 명사, 동사, 형용사와 같은 단어만 단어 그래프를 만드는데 이용합니다. 
 모든 종류의 단어를 이용하면 ‘a’, ‘the’ 와 같은 단어들이 다른 단어들과 압도적인 co-occurrence 를 지니기 때문입니다. 
