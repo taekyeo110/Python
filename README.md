@@ -116,7 +116,7 @@ def textrank_keyword(sents, tokenize, min_count, window, min_cooccurrence, df=0.
 
 
 
-#적용
+##	적용
 
 크롤링으로 수집한 인크레더블 영화 댓글 10267개의 keyword를 구합니다.
 
@@ -136,7 +136,8 @@ def textrank_keyword(sents, tokenize, min_count, window, min_cooccurrence, df=0.
 ......
 
 ```
-문장들의 가중치를 계산할 때, '~가, ~도'와 같은 불필요하게 가중치가 높아질 수 있는 단어들은 stopword라는 변수로 제외시킵니다. 
+문장들의 가중치를 계산할 때, '~가, ~도'와 같은 불필요하게 가중치가 높아질 수 있는 단어들은 stopword라는 변수로 제외시킵니다.
+아직 세탁소 댓글을 다 만들지 못해 stopword는 지정하지 않았습니다.
 위 데이터에서 가중치가 높은 sents와 keyword를 뽑아 csv파일로 저장합니다.
 ```
 from konlpy.tag import Komoran
@@ -198,3 +199,10 @@ keywords2.to_csv('C:/py36/review_emotion2.csv',encoding='utf-8-sig')
 9|있/VV|7.158753249
 ```
 
+
+
+References
+Page, L., Brin, S., Motwani, R., & Winograd, T. (1999). The PageRank citation ranking: Bringing order to the web. Stanford InfoLab
+Mihalcea, R., & Tarau, P. (2004). Textrank: Bringing order into text. In Proceedings of the 2004 conference on empirical methods in natural language processing
+Erkan, G., & Radev, D. R. (2004). Lexrank: Graph-based lexical centrality as salience in text summarization. Journal of Artificial Intelligence Research, 22, 457-479
+Barrios, F., López, F., Argerich, L., & Wachenchauzer, R. (2016). Variations of the similarity function of textrank for automated summarization. arXiv preprint arXiv:1602.03606.
