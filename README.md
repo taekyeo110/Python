@@ -183,7 +183,7 @@ keywords2.columns = ["keywords","weights"]
 keywords2.to_csv('C:/py36/review_emotion2.csv',encoding='utf-8-sig')
 ```
 추출한 keyword입니다. 명사만 뽑을 수 있지만 혹시 몰라 형용사와 동사도 뽑았습니다. 차후에 세탁소 댓글이 완성되면 조정할 계획입니다.
-```
+
 	|keywords|	weights
 0	|보/VV	|36.62739196
 1	|관람객/NNG	|30.84064907
@@ -195,5 +195,5 @@ keywords2.to_csv('C:/py36/review_emotion2.csv',encoding='utf-8-sig')
 7	|좋/VA	|7.613481931
 8	|인크레더블/NNP	|7.292621322
 9	|있/VV	|7.158753249
-```
+
 
