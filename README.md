@@ -114,3 +114,86 @@ def textrank_keyword(sents, tokenize, min_count, window, min_cooccurrence, df=0.
     return keywords
 ```
 
+
+
+#적용
+
+크롤링으로 수집한 인크레더블 영화 댓글 10267개의 keyword를 구합니다.
+
+크롤링한 10267개의 댓글입니다.
+```
+	|num|	ID|	review|	score
+0|	1|	yski****|	 잭잭이랑 에드나 케미 미쳤닼ㅋㅋㅋ| 	10
+1|	2|	배센도(bbtj****)|	 어릴 때 1편을 보고 성인이 된 올해 2편을 봤다  또 보고 싶다  3편도 나오면 좋겠다|  	10
+2|  3|	space(tmd5****)|	 속편도 이리 완벽할 수 있구나 |   	10
+3|	4|	황진이의두번째팬티(sion****)|	 중심히어로와 빌런이 여성이라는 점 그 둘의 대화 내용 아내에게 열등감을 느끼던 남편이 육아를 도맡고 아내의 바깥일을 내조하며 그녀를 진짜 히어로로 인정하는과정이 인상 깊었다  꿈이 많은 내게 선물같은 영화였다|   	10
+4|	5|	불(catc****)|	 이런 게 최고의 애니매이션이 아니면 뭐란 말인가   미취학아동 때 1을 보고 대학생이 되어서 2를 보는 기분이란   ㅠㅠㅠ헬렌의 활약과 잭잭의 귀여움 그리고 개인적으로는 에드나의 매력까지 올해 본 영화 중 최고|     	10
+5|	6|	쿠앤크(zhfl****)|	 잭잭 납치하러 갈 파티원 구합니다 1 10000 | 	8
+6|	7|	아머두어라두(dkqj****)|	 관람객내 어릴적 베스트 영화의 속편이 너무 잘만들어져서 울컥했습니다|  	10
+7|	8|	일산빵셔틀(rnra****)|	 평론가 임수연씨의 마블보다 재밌다는 평을보고 코웃음치고 보러갔는데 마블빠인 내가봐도 마블보다 재밌었다 히어로물은 언제까지나 마블의 독주일꺼라는 착각을 씻어내준 가족액션 히어로물 진짜 너무재밌다| 	10
+8|	9|	물짱이(pres****)|	 관람객꼭 보세요 개 쩜  일라스티걸이 미스터인크레더블의 그늘에서 벗어나 활약하는 것도 멋지지만 미스터 인크레더블이 바뀐 역할을 얕보지 않고 가족을 위해서 열심히 노력하는 모습도 멋집니다  가족 구성원의 어떤 역할이든 중요|   	10
+9|	10|	임태준(kota****)|	 일라스틱걸 사랑해요 ㅜㅜ| 	10
+......
+
+```
+문장들의 가중치를 계산할 때, '~가, ~도'와 같은 불필요하게 가중치가 높아질 수 있는 단어들은 stopword라는 변수로 제외시킵니다. 
+위 데이터에서 가중치가 높은 sents와 keyword를 뽑아 csv파일로 저장합니다.
+```
+from konlpy.tag import Komoran
+from summarizer import KeywordSummarizer
+from summarizer import KeysentenceSummarizer
+import pandas as pd
+import string
+import numpy as np
+import sys
+
+komoran = Komoran()
+
+a = pd.read_csv('C:/py36/review_emotion.csv', encoding='utf-8')
+
+'''
+a.columns=['num','ID','review','score']
+a['review'] = a['review'].str.replace(pat='[^\w\s]', repl= ' ')  # replace all special symbols to space
+a['review'] = a['review'].str.replace(pat='[\s\s+]', repl= ' ', regex=True)  # replace multiple spaces with a single space
+'''
+sentss = list(np.array(a['review'].tolist()))
+sents = []
+
+for i in range(1000):
+    sents.insert(i,sentss[i])
+
+def komoran_tokenize(sent):
+    words = komoran.pos(sent, join=True)
+    words = [w for w in words if ('/NN' in w or '/XR' in w or '/VA' in w or '/VV' in w)]
+    return words
+
+keyword_extractor = KeywordSummarizer(
+    tokenize = komoran_tokenize,
+    window = -1,
+    verbose = False
+)
+keywords = keyword_extractor.summarize(sents, topk=10)
+
+summarizer = KeysentenceSummarizer(tokenize = komoran_tokenize, min_sim = 0.5)
+keysents = summarizer.summarize(sents, topk=10)
+
+keywords2 = pd.DataFrame(keywords)
+keywords2.columns = ["keywords","weights"]
+
+keywords2.to_csv('C:/py36/review_emotion2.csv',encoding='utf-8-sig')
+```
+추출한 keyword입니다. 명사만 뽑을 수 있지만 혹시 몰라 형용사와 동사도 뽑았습니다. 차후에 세탁소 댓글이 완성되면 조정할 계획입니다.
+```
+	|keywords|	weights
+0	|보/VV	|36.62739196
+1	|관람객/NNG	|30.84064907
+2	|잭/NNP	|21.10252649
+3	|재밌/VA	|17.58688637
+4	|편/NNB	|14.03999885
+5	|영화/NNG	|10.25931933
+6	|나오/VV	|8.003162485
+7	|좋/VA	|7.613481931
+8	|인크레더블/NNP	|7.292621322
+9	|있/VV	|7.158753249
+```
+
