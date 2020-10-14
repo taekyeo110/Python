@@ -25,7 +25,7 @@ def scan_vocabulary(sents, tokenize, min_count=2):
 마디인 단어는 주어진 문서 집합에서 최소 빈도수 min_count 이상 등장한 단어들 입니다. 
 sents 는 list of str 형식의 문장들이며, tokenize 는 str 형식의 문장을 list of str 형식의 단어열로 나누는 토크나이저 입니다.
 counter는 sent와 sent에 있는 단어의 개수를 체크하여 c가 min_count보다 큰 {w,c}의 형태의 딕셔너리입니다.
-idx_to_vocab은 key를 x[1]로 하고 key의 값이 큰 순으로 오름차순을 합니다.
+idx_to_vocab은 key를 x[1]로 하고 key의 값이 큰 순으로 정렬을 합니다.
 idx_to_vocab: [vocab]의 리스트, list에 [idx]로 접근
 vocab_to_idx는 idx_to_vocab의 값에서 idx(순서)와 vocab(단어)를 뽑아냅니다.
 vocab_to_idx: {vocab: idx}의 형태의 딕셔너리.
@@ -132,7 +132,8 @@ def word_graph(sents, tokenize=None, min_count=2, window=2, min_cooccurrence=2):
 그 뒤 만들어진 그래프에 PageRank 를 학습하는 함수를 만듭니다. 
 입력되는 x 는 co-occurrence 그래프일 수 있으니, column sum 이 1 이 되도록 L1 normalization 을 합니다. 이를 A 라 합니다. 
 A * R 은 column j에서 row i로의 랭킹 R_j의 전달되는 값을 의미합니다. 
-이 값에 df 를 곱하고, 모든 마디에 1 - df 를 더합니다. 이를 max_iter 만큼 반복합니다.
+이 값에 df 를 곱하고, 모든 마디에 1 - df 를 더합니다. 신뢰도 높은 R값을 위해 이를 max_iter 만큼 반복합니다.
+값이 수렴하게되면 max_iter 값이 더 높아도 랭킹 R의 값은 변하지 않습니다.
 
 ```
 import numpy as np
@@ -141,9 +142,10 @@ from sklearn.preprocessing import normalize
 def pagerank(x, df=0.85, max_iter=30):
     assert 0 < df < 1
 
-    # initialize
+    # initialize(초기화)
     A = normalize(x, axis=0, norm='l1')
-    R = np.ones(A.shape[0]).reshape(-1,1)
+    R = np.ones(A.shape[0]).reshape(-1,1)	
+    #np.ones : 다 1로 채우는 것 #A.shape[0] : A의 행 갯수 # reshape(-1,1) : 열을 1개로 두었을 때 가변적으로 만들어지는 행의 개수 -> 만약 총 12개면 -1이 12가 된다.
     bias = (1 - df) * np.ones(A.shape[0]).reshape(-1,1)
 
     # iteration
@@ -164,8 +166,8 @@ def pagerank(x, df=0.85, max_iter=30):
 ```
 def textrank_keyword(sents, tokenize, min_count, window, min_cooccurrence, df=0.85, max_iter=30, topk=30):
     g, idx_to_vocab = word_graph(sents, tokenize, min_count, window, min_cooccurrence)
-    R = pagerank(g, df, max_iter).reshape(-1)
-    idxs = R.argsort()[-topk:]
+    R = pagerank(g, df, max_iter).reshape(-1)	#1차원 배열로 reshape
+    idxs = R.argsort()[-topk:]	#큰 순서대로 30개 정렬
     keywords = [(idx_to_vocab[idx], R[idx]) for idx in reversed(idxs)]
     return keywords
 ```
@@ -211,7 +213,7 @@ import string
 import numpy as np
 import sys
 
-komoran = Komoran()
+komoran = Komoran()		#Java로 이루어진 한국어 형태소 분석기
 
 a = pd.read_csv('C:/py36/review_emotion.csv', encoding='utf-8')
 
@@ -220,17 +222,21 @@ a.columns=['num','ID','review','score']
 a['review'] = a['review'].str.replace(pat='[^\w\s]', repl= ' ')  # replace all special symbols to space
 a['review'] = a['review'].str.replace(pat='[\s\s+]', repl= ' ', regex=True)  # replace multiple spaces with a single space
 '''
-sentss = list(np.array(a['review'].tolist()))
+
+sentss = list(np.array(a['review'].tolist()))		#review열을 추출
 sents = []
 
+#sents에 리뷰 넣기
 for i in range(1000):
     sents.insert(i,sentss[i])
 
+#komoran 토크나이저(명사,동사,형용사 등으로 나눠줌)
 def komoran_tokenize(sent):
     words = komoran.pos(sent, join=True)
     words = [w for w in words if ('/NN' in w or '/XR' in w or '/VA' in w or '/VV' in w)]
     return words
 
+#keywordSummarizer를 통해 keyword 상위 10개 추출
 keyword_extractor = KeywordSummarizer(
     tokenize = komoran_tokenize,
     window = -1,
@@ -241,8 +247,8 @@ keywords = keyword_extractor.summarize(sents, topk=10)
 summarizer = KeysentenceSummarizer(tokenize = komoran_tokenize, min_sim = 0.5)
 keysents = summarizer.summarize(sents, topk=10)
 
-keywords2 = pd.DataFrame(keywords)
-keywords2.columns = ["keywords","weights"]
+keywords2 = pd.DataFrame(keywords)	#keyword를 데이터 프레임으로 변경
+keywords2.columns = ["keywords","weights"]	#keyword df의 columns명 변경
 
 keywords2.to_csv('C:/py36/review_emotion2.csv',encoding='utf-8-sig')
 ```
