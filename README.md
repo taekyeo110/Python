@@ -8,7 +8,7 @@ TextRank 는 키워드 추출 기능과 핵심 문장 추출 기능, 두 가지�
 마디인 단어는 주어진 문서 집합에서 최소 빈도수 min_count 이상 등장한 단어들 입니다. 
 sents 는 list of str 형식의 문장들이며, tokenize 는 str 형식의 문장을 list of str 형식의 단어열로 나누는 토크나이저 입니다.
 
-'''
+'''C
 
   from collections import Counter
 
