@@ -1,12 +1,56 @@
+### 개요
+
+textrank는 Michalcea(2004)이 제안한 알고리즘으로 텍스트에 관한 graph-based ranking model로써, Google의 PageRank를 활용한 알고리즘입니다.
+
+# PageRank
+
+PageRank 는 가장 대표적인 graph ranking 알고리즘입니다. 
+Google 의 Larry Page 가 초기 Google 의 검색 엔진의 랭킹 알고리즘으로 만든 알고리즘으로도 유명합니다. 
+Web page graph 에서 중요한 pages 를 찾아서 검색 결과의 re-ranking 의 과정에서 중요한 pages 의 ranking 을 올리는데 이용되었습니다.
+
+중요한 web pages를 찾기 위하여 PageRank는 매우 직관적인 아이디어를 이용하였습니다. 
+많은 유입 링크(backlinks)를 지니는 pages 가 중요한 pages라 가정하였습니다.
+각 web page가 다른 web page에게 자신의 점수 중 일부를 부여합니다. 
+다른 web page로부터의 링크 (backlinks)가 많은 page는 자신에게 모인 점수가 클 것입니다. 
+자신으로 유입되는 backlinks가 적은 pages는 다른 web pages로부터 받은 점수가 적을 것입니다. 
+또한 모든 pages가 같은 양의 점수를 가지는 것이 아닙니다. 중요한 pages는 많은 점수를 가지고 있습니다. 
+Backlinks가 적은 링크라 하더라도 중요한 page에서 투표를 받은 page 는 중요한 page가 됩니다.
+
+PageRank에서 각 node의 중요도 PR(u)는 다음처럼 계산됩니다.
+B_u는 page u의 backlinks의 출발점 마디입니다.
+v에서 u로 webpage의 hyperlink가 있습니다.
+각 page v는 자신의 점수를 자신이 가진 links의 개수만큼으로 나눠서 각각의 page u로 전달합니다.
+page u는 page v로부터 받은 점수의 합에 상수 c를 곱합니다.
+그리로 전체 마디의 개수 N의 역수인 1/N의 (1-c)배 만큼을 더합니다.
+c는 [0,1]사이의 상수입니다. 논문에서는 0.85를 이용하여 저도 0.85를 이용하였습니다.
+
+![111](https://user-images.githubusercontent.com/17975141/96290981-6be47980-1022-11eb-8f98-92336106ced4.png)
+
+PageRank는 N개의 node가 존재하는 graph에 각 마디마다 공평하게 1/N의 점수를 줍니다.
+한 step마다 모든 node의 점수는 link들을 따라 연결된 다른 node들로 이동합니다.
+한 node가 두개 이상이라면 점수는 공평히 나누어져 link를 따라 이동합니다.
+이 부분이 위 식의 PR(v)/N_v 입니다.
+Backlinks가 많은 node에는 많은 점수가 모입니다.
+이 과정을 한 번이 아닌 여러 번 수행합니다.
+
+![image](https://user-images.githubusercontent.com/17975141/96291860-abf82c00-1023-11eb-884e-b7fbc6199e3b.png)
+
+이런 과정을 각 마디에 존재하는 점수가 변하지 않는 시점이 생깁니다.
+
+![image](https://user-images.githubusercontent.com/17975141/96291957-d0ec9f00-1023-11eb-8070-c735484f3a34.png)
+
+이 때, 그래프가 Cyclic graph여야만 PageRank를 적용할 수 있습니다.
+즉 다른 마디로부터 들어오는 link는 있지만 다른 마디로 가는 link가 없는 node는 있어서는 안된다는 것입니다.
+이런 상황에서는 문제를 해결하기 위해 각 node에 존재하는 점수의 85%(c=0.85)만큼만 남겨두고 (1-c),15%는 임의의 노드로 보냅니다.
+모든 마디에서 15%의 개미가 다른 마디로 나뉘어서 보내지기 때문에 각 마디는 (1-c)/N의 점수가 새로 유입됩니다.
+이렇게 되면 PageRank의 Bias가 (1-c)/N인 Cyclic graph가 완성됩니다.
+
+
 # Textrank
 
 
 
 TextRank 는 키워드 추출 기능과 핵심 문장 추출 기능, 두 가지를 제공합니다. 
-
-
-
-
 
 
 
