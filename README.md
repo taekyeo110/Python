@@ -74,8 +74,8 @@ counter는 sent와 sent에 있는 단어의 개수를 체크하여 c가 min_coun
 idx_to_vocab은 key를 x[1]로 하고 key의 값이 큰 순으로 정렬을 합니다.
 idx_to_vocab: [vocab]의 리스트, list에 [idx]로 접근
 vocab_to_idx는 idx_to_vocab의 값에서 idx(순서)와 vocab(단어)를 뽑아냅니다.
-vocab_to_idx: {vocab: idx}의 형태의 딕셔너리.
-
+vocab_to_idx: {vocab: idx}의 형태의 딕셔너리.  
+  
 이제 그래프에 필요한 node들이 생성되었습니다.
 
 
@@ -229,9 +229,9 @@ def textrank_keyword(sents, tokenize, min_count, window, min_cooccurrence, df=0.
 
 # 적용
 
-크롤링으로 수집한 인크레더블 영화 댓글 10267개의 keyword를 구합니다.
-
-크롤링한 10267개의 댓글입니다.
+크롤링으로 수집한 인크레더블 영화 댓글 10267개의 keyword를 구합니다.  
+  
+크롤링한 10267개의 댓글입니다.  
 ```
 	|num|	ID|	review|	score
 0|	1|	yski****|	 잭잭이랑 에드나 케미 미쳤닼ㅋㅋㅋ| 	10
@@ -317,8 +317,8 @@ keywords2.to_csv('C:/py36/review_emotion2.csv',encoding='utf-8-sig')
 
 
 # refernce
-https://excelsior-cjh.tistory.com/93
-https://lovit.github.io/nlp/2019/04/30/textrank/
-Mihalcea, R., & Tarau, P. (2004). Textrank: Bringing order into text. In Proceedings of the 2004 conference on empirical methods in natural language processing
-Erkan, G., & Radev, D. R. (2004). Lexrank: Graph-based lexical centrality as salience in text summarization. Journal of Artificial Intelligence Research, 22, 457-479
-Barrios, F., López, F., Argerich, L., & Wachenchauzer, R. (2016). Variations of the similarity function of textrank for automated summarization. arXiv preprint arXiv:1602.03606.
+https://excelsior-cjh.tistory.com/93  
+https://lovit.github.io/nlp/2019/04/30/textrank/  
+Mihalcea, R., & Tarau, P. (2004). Textrank: Bringing order into text. In Proceedings of the 2004 conference on empirical methods in natural language processing  
+Erkan, G., & Radev, D. R. (2004). Lexrank: Graph-based lexical centrality as salience in text summarization. Journal of Artificial Intelligence Research, 22, 457-479  
+Barrios, F., López, F., Argerich, L., & Wachenchauzer, R. (2016). Variations of the similarity function of textrank for automated summarization. arXiv preprint arXiv:1602.03606.  
