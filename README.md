@@ -1,4 +1,4 @@
-### 개요
+# 개요
 
 textrank는 Michalcea(2004)이 제안한 알고리즘으로 텍스트에 관한 graph-based ranking model로써, Google의 PageRank를 활용한 알고리즘입니다.
 
