@@ -48,9 +48,11 @@ Backlinks가 많은 node에는 많은 점수가 모입니다.
 
 # Textrank
 
-
-
-TextRank 는 키워드 추출 기능과 핵심 문장 추출 기능, 두 가지를 제공합니다. 
+TextRank는 word graph나 sentence graph를 구축한 뒤, Graph ranking알고리즘인 PageRank를 이용하여 각각 키워드와 핵심 문장을 선택합니다.
+TextRank는 핵심 단어를 선택하기 위해서 단어 간의 co-occurrence graph를 만듭니다. 
+핵심 문장을 선택하기 위해서는 문장 간 유사도를 기반으로 sentence similarity graph를 만듭니다. 
+그 뒤 각각 그래프에 PageRank를 학습하여 각 마디 (단어 혹은 문장) 의 랭킹을 계산합니다. 
+이 랭킹이 높은 순서대로 키워드와 핵심 문장이 됩니다. 
 
 
 
