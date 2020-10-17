@@ -2,6 +2,12 @@
 
 textrank는 Michalcea(2004)이 제안한 알고리즘으로 텍스트에 관한 graph-based ranking model로써, Google의 PageRank를 활용한 알고리즘입니다.
 
+#목차
+
+1. PageRank  
+2. TextRank  
+3. 적용
+
 # PageRank
 
 PageRank 는 가장 대표적인 graph ranking 알고리즘입니다. 
