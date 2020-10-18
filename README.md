@@ -306,11 +306,16 @@ keywords2.to_csv('C:/py36/review_emotion2.csv',encoding='utf-8-sig')
 ```
   
   
-뽑아낸 keyword는 세탁소를 대표하는 단어로 나타내어집니다.
-(사진 첨부 예정)
+뽑아낸 keyword는 세탁소를 대표하는 단어로 나타내어집니다.  
+
+![가게 리스트](https://user-images.githubusercontent.com/17975141/96369881-0e256e00-1197-11eb-837f-13dc8c060b9b.jpg)
   
-그리고 해쉬태그를 클릭하면 해쉬태그에 해당하는 모든 세탁소 목록이 나옵니다.
-(사진 첨부 예정)
+그리고 해쉬태그를 클릭하면 해쉬태그에 해당하는 모든 세탁소 목록이 나옵니다.  
+
+![해쉬태그 클릭](https://user-images.githubusercontent.com/17975141/96369886-11205e80-1197-11eb-933a-cb2cfde82d45.png)
+
+![이중 해쉬태그 검색](https://user-images.githubusercontent.com/17975141/96369888-12ea2200-1197-11eb-8c72-cf7afc97586b.png)
+
 
 
 # refernce
