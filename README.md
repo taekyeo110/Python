@@ -60,7 +60,7 @@ Backlinks가 많은 node에는 많은 점수가 모입니다.
   
 그림으로 요약해보겠습니다.
   
-![슬라이드1](https://user-images.githubusercontent.com/17975141/96361279-4d37cd00-115f-11eb-90d0-7eb95028c613.PNG)
+![슬라이드1](https://user-images.githubusercontent.com/17975141/96369969-5349a000-1197-11eb-99b9-e18de7e4e265.png)
 
 ![슬라이드2](https://user-images.githubusercontent.com/17975141/96361285-56289e80-115f-11eb-8bf1-d5fdad02b654.PNG)
 
