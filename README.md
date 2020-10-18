@@ -140,7 +140,9 @@ dict_to_mat 함수는 dict of dict 형식의 그래프를 아래와 같은 scipy
 
 이제 edge들이 생성되었습니다.
 window값에 따라 edge의 개수가 달라집니다. window값이 크면 node의 edge의 개수가 많아집니다.
-그래프가 지나치게 dense(밀집)해지는 것을 방지하고 싶다면 min_coocurrence와 window값을 크게하여 그래프를 sparse(드문드문)하게 만들 수도 있습니다.
+그래프가 지나치게 dense(밀집)해지는 것을 방지하고 싶다면 min_coocurrence와 window값을 크게하여 그래프를 sparse(드문드문)하게 만들 수도 있습니다.  
+
+아래 그래프 값은 co-occurrence입니다.
 
 ![graph_wordgraph](https://user-images.githubusercontent.com/17975141/96010842-394d4c00-0e7d-11eb-88c1-f8ed16bc6634.png)
 
