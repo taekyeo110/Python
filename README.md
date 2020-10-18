@@ -4,9 +4,33 @@ textrank는 Michalcea(2004)이 제안한 알고리즘으로 텍스트에 관한 
 
 # 목차
 
-1. PageRank  
-2. TextRank  
-3. 적용
+1. 요약  
+2. PageRank  
+3. TextRank
+4. 적용
+
+# 요약
+
+![슬라이드8](https://user-images.githubusercontent.com/17975141/96361301-79ebe480-115f-11eb-828a-67f328896b29.PNG)
+
+![슬라이드1](https://user-images.githubusercontent.com/17975141/96361279-4d37cd00-115f-11eb-90d0-7eb95028c613.PNG)
+
+![슬라이드2](https://user-images.githubusercontent.com/17975141/96361285-56289e80-115f-11eb-8bf1-d5fdad02b654.PNG)
+
+![슬라이드3](https://user-images.githubusercontent.com/17975141/96361291-5cb71600-115f-11eb-9888-951a90ba7065.PNG)
+
+![슬라이드4](https://user-images.githubusercontent.com/17975141/96361293-62acf700-115f-11eb-8a3a-6008b97379ab.PNG)
+
+![슬라이드5](https://user-images.githubusercontent.com/17975141/96361297-693b6e80-115f-11eb-9abe-8b3915222b03.PNG)
+
+![슬라이드6](https://user-images.githubusercontent.com/17975141/96361298-6f314f80-115f-11eb-97c1-e404227f4d2b.PNG)
+
+![슬라이드7](https://user-images.githubusercontent.com/17975141/96361300-75273080-115f-11eb-9360-cde619d48298.PNG)
+
+
+
+
+
 
 # PageRank
 
@@ -134,19 +158,19 @@ window = N이라 하면, 특정 단어에서 좌,우로 N개의 단어를 참고
 window가 0보다 작으니 range가 0부터 단어 개수인 n이 되어 모든 단어를 검사하게 됩니다.
 counter로 단어의 개수를 세고, min_coocurrence보다 큰 v의 값을 가진 단어들만 
 min_coocurrence의 값은 최소 유사도로서, min_coocurrence의 값보다 작은 유사도를 가진 단어는 matrix에 포함되지 못하도록 합니다.
-dict_to_mat 함수는 dict of dict 형식의 그래프를 아래와 같은 scipy의 sparse matrix(희소행렬 - 단어수 세기에 좋음)로 변환하는 함수입니다.
+dict_to_mat 함수는 dict of dict 형식의 그래프를 아래와 같은 scipy의 sparse matrix(희소행렬 - 단어수 세기에 좋음)로 변환하는 함수입니다.  
+  
+아래 그래프 값은 co-occurrence입니다. 이 값들이 그래프의 node 값이 됩니다.
 
 ![dd](https://user-images.githubusercontent.com/17975141/96014510-6f8cca80-0e81-11eb-9236-def236b11750.png)
 
-이제 edge들이 생성되었습니다.
-window값에 따라 edge의 개수가 달라집니다. window값이 크면 node의 edge의 개수가 많아집니다.
-그래프가 지나치게 dense(밀집)해지는 것을 방지하고 싶다면 min_coocurrence와 window값을 크게하여 그래프를 sparse(드문드문)하게 만들 수도 있습니다.  
-
-아래 그래프 값은 co-occurrence입니다.
+matrix의 column과 index 사이에 값이 있다면 edge가 생깁니다. 이제 edge들이 생성되었습니다.
+window값에 따라 edge의 개수가 달라집니다. window값이 크면 node의 edge의 개수가 많아집니다. 왜냐하면 window가 크면 window 값만큼 선택한 단어 주변 단어들을 검사하기 때문입니다.
+그래프가 지나치게 dense(밀집)해지는 것을 방지하고 싶다면 min_coocurrence와 window값을 크게하여 그래프를 sparse(드문드문)하게 만들 수도 있습니다.    
+그리하여 아래와 같은 그래프를 만들 수 있습니다.
 
 ![graph_wordgraph](https://user-images.githubusercontent.com/17975141/96010842-394d4c00-0e7d-11eb-88c1-f8ed16bc6634.png)
-
-
+  
 
 
 
@@ -225,9 +249,8 @@ def textrank_keyword(sents, tokenize, min_count, window, min_cooccurrence, df=0.
     keywords = [(idx_to_vocab[idx], R[idx]) for idx in reversed(idxs)]
     return keywords
 ```
-
-
-
+  
+  
 
 
 
