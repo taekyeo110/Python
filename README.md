@@ -13,19 +13,6 @@ textrank는 Michalcea(2004)이 제안한 알고리즘으로 텍스트에 관한 
 
 ![슬라이드8](https://user-images.githubusercontent.com/17975141/96361301-79ebe480-115f-11eb-828a-67f328896b29.PNG)
 
-![슬라이드1](https://user-images.githubusercontent.com/17975141/96361279-4d37cd00-115f-11eb-90d0-7eb95028c613.PNG)
-
-![슬라이드2](https://user-images.githubusercontent.com/17975141/96361285-56289e80-115f-11eb-8bf1-d5fdad02b654.PNG)
-
-![슬라이드3](https://user-images.githubusercontent.com/17975141/96361291-5cb71600-115f-11eb-9888-951a90ba7065.PNG)
-
-![슬라이드4](https://user-images.githubusercontent.com/17975141/96361293-62acf700-115f-11eb-8a3a-6008b97379ab.PNG)
-
-![슬라이드5](https://user-images.githubusercontent.com/17975141/96361297-693b6e80-115f-11eb-9abe-8b3915222b03.PNG)
-
-![슬라이드6](https://user-images.githubusercontent.com/17975141/96361298-6f314f80-115f-11eb-97c1-e404227f4d2b.PNG)
-
-![슬라이드7](https://user-images.githubusercontent.com/17975141/96361300-75273080-115f-11eb-9360-cde619d48298.PNG)
 
 
 
@@ -74,6 +61,27 @@ Backlinks가 많은 node에는 많은 점수가 모입니다.
 이런 상황에서는 문제를 해결하기 위해 각 node에 존재하는 점수의 85%(c=0.85)만큼만 남겨두고 (1-c),15%는 임의의 노드로 보냅니다.
 모든 마디에서 15%의 개미가 다른 마디로 나뉘어서 보내지기 때문에 각 마디는 (1-c)/N의 점수가 새로 유입됩니다.
 이렇게 되면 PageRank의 Bias가 (1-c)/N인 Cyclic graph가 완성됩니다.
+  
+  
+그림으로 요약해보겠습니다.
+  
+![슬라이드1](https://user-images.githubusercontent.com/17975141/96361279-4d37cd00-115f-11eb-90d0-7eb95028c613.PNG)
+
+![슬라이드2](https://user-images.githubusercontent.com/17975141/96361285-56289e80-115f-11eb-8bf1-d5fdad02b654.PNG)
+
+![슬라이드3](https://user-images.githubusercontent.com/17975141/96361291-5cb71600-115f-11eb-9888-951a90ba7065.PNG)
+
+![슬라이드4](https://user-images.githubusercontent.com/17975141/96361293-62acf700-115f-11eb-8a3a-6008b97379ab.PNG)
+
+![슬라이드5](https://user-images.githubusercontent.com/17975141/96361297-693b6e80-115f-11eb-9abe-8b3915222b03.PNG)
+
+![슬라이드6](https://user-images.githubusercontent.com/17975141/96361298-6f314f80-115f-11eb-97c1-e404227f4d2b.PNG)
+
+![슬라이드7](https://user-images.githubusercontent.com/17975141/96361300-75273080-115f-11eb-9360-cde619d48298.PNG)
+
+
+
+
 
 
 # Textrank
