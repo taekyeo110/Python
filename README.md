@@ -14,11 +14,6 @@ textrank는 Michalcea(2004)이 제안한 알고리즘으로 텍스트에 관한 
 ![슬라이드8](https://user-images.githubusercontent.com/17975141/96361301-79ebe480-115f-11eb-828a-67f328896b29.PNG)
 
 
-
-
-
-
-
 # PageRank
 
 PageRank 는 가장 대표적인 graph ranking 알고리즘입니다. 
@@ -80,10 +75,6 @@ Backlinks가 많은 node에는 많은 점수가 모입니다.
 ![슬라이드7](https://user-images.githubusercontent.com/17975141/96361300-75273080-115f-11eb-9360-cde619d48298.PNG)
 
 
-
-
-
-
 # Textrank
 
 TextRank는 word graph나 sentence graph를 구축한 뒤, Graph ranking알고리즘인 PageRank를 이용하여 각각 키워드와 핵심 문장을 선택합니다.
@@ -91,7 +82,6 @@ TextRank는 핵심 단어를 선택하기 위해서 단어 간의 co-occurrence 
 핵심 문장을 선택하기 위해서는 문장 간 유사도를 기반으로 sentence similarity graph를 만듭니다. 
 그 뒤 각각 그래프에 PageRank를 학습하여 각 마디 (단어 혹은 문장) 의 랭킹을 계산합니다. 
 이 랭킹이 높은 순서대로 키워드와 핵심 문장이 됩니다. 
-
 
 
 ```
@@ -115,16 +105,6 @@ vocab_to_idx는 idx_to_vocab의 값에서 idx(순서)와 vocab(단어)를 뽑아
 vocab_to_idx: {vocab: idx}의 형태의 딕셔너리.  
   
 이제 그래프에 필요한 node들이 생성되었습니다.
-
-
-
-
-
-
-
-
-
-
 
 ```
 from collections import defaultdict
@@ -168,7 +148,7 @@ counter로 단어의 개수를 세고, min_coocurrence보다 큰 v의 값을 가
 min_coocurrence의 값은 최소 유사도로서, min_coocurrence의 값보다 작은 유사도를 가진 단어는 matrix에 포함되지 못하도록 합니다.
 dict_to_mat 함수는 dict of dict 형식의 그래프를 아래와 같은 scipy의 sparse matrix(희소행렬 - 단어수 세기에 좋음)로 변환하는 함수입니다.  
   
-아래 그래프 값은 co-occurrence입니다. 이 값들이 그래프의 node 값이 됩니다.
+아래 그래프 값은 co-occurrence입니다. 이 값들이 그래프의 node 값인 R이 됩니다.
 
 ![dd](https://user-images.githubusercontent.com/17975141/96014510-6f8cca80-0e81-11eb-9236-def236b11750.png)
 
@@ -179,13 +159,6 @@ window값에 따라 edge의 개수가 달라집니다. window값이 크면 node�
 
 ![graph_wordgraph](https://user-images.githubusercontent.com/17975141/96010842-394d4c00-0e7d-11eb-88c1-f8ed16bc6634.png)
   
-
-
-
-
-
-
-
 
 
 TextRank 에서는 명사, 동사, 형용사와 같은 단어만 단어 그래프를 만드는데 이용합니다. 
@@ -203,17 +176,6 @@ def word_graph(sents, tokenize=None, min_count=2, window=2, min_cooccurrence=2):
     g = cooccurrence(tokens, vocab_to_idx, window, min_cooccurrence, verbose)
     return g, idx_to_vocab
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 그 뒤 만들어진 그래프에 PageRank 를 학습하는 함수를 만듭니다. 
 입력되는 x 는 co-occurrence 그래프일 수 있으니, column sum 이 1 이 되도록 L1 normalization 을 합니다. 이를 A 라 합니다. 
@@ -242,11 +204,6 @@ def pagerank(x, df=0.85, max_iter=30):
 ```
 
 
-
-
-
-
-
 이 과정을 정리하면 아래와 같은 textrank_keyword 함수를 만들 수 있습니다.
 
 ```
@@ -259,12 +216,7 @@ def textrank_keyword(sents, tokenize, min_count, window, min_cooccurrence, df=0.
 ```
   
   
-
-
-
-
-
-
+  
 
 # 적용
 
