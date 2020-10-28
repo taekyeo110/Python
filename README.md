@@ -1,13 +1,87 @@
+# 개요
+
+textrank는 Michalcea(2004)이 제안한 알고리즘으로 텍스트에 관한 graph-based ranking model로써, Google의 PageRank를 활용한 알고리즘입니다.
+
+# 목차
+
+1. 요약  
+2. PageRank  
+3. TextRank
+4. 적용
+
+# 요약
+
+![슬라이드8](https://user-images.githubusercontent.com/17975141/96361301-79ebe480-115f-11eb-828a-67f328896b29.PNG)
+
+
+# PageRank
+
+PageRank 는 가장 대표적인 graph ranking 알고리즘입니다. 
+Google 의 Larry Page 가 초기 Google 의 검색 엔진의 랭킹 알고리즘으로 만든 알고리즘으로도 유명합니다. 
+Web page graph 에서 중요한 pages 를 찾아서 검색 결과의 re-ranking 의 과정에서 중요한 pages 의 ranking 을 올리는데 이용되었습니다.
+
+중요한 web pages를 찾기 위하여 PageRank는 매우 직관적인 아이디어를 이용하였습니다. 
+많은 유입 링크(backlinks)를 지니는 pages 가 중요한 pages라 가정하였습니다.
+각 web page가 다른 web page에게 자신의 점수 중 일부를 부여합니다. 
+다른 web page로부터의 링크 (backlinks)가 많은 page는 자신에게 모인 점수가 클 것입니다. 
+자신으로 유입되는 backlinks가 적은 pages는 다른 web pages로부터 받은 점수가 적을 것입니다. 
+또한 모든 pages가 같은 양의 점수를 가지는 것이 아닙니다. 중요한 pages는 많은 점수를 가지고 있습니다. 
+Backlinks가 적은 링크라 하더라도 중요한 page에서 투표를 받은 page 는 중요한 page가 됩니다.
+
+PageRank에서 각 node의 중요도 PR(u)는 다음처럼 계산됩니다.
+B_u는 page u의 backlinks의 출발점 마디입니다.
+v에서 u로 webpage의 hyperlink가 있습니다.
+각 page v는 자신의 점수를 자신이 가진 links의 개수만큼으로 나눠서 각각의 page u로 전달합니다.
+page u는 page v로부터 받은 점수의 합에 상수 c를 곱합니다.
+그리로 전체 마디의 개수 N의 역수인 1/N의 (1-c)배 만큼을 더합니다.
+c는 [0,1]사이의 상수입니다. 논문에서는 0.85를 이용하여 저도 0.85를 이용하였습니다.
+
+![111](https://user-images.githubusercontent.com/17975141/96290981-6be47980-1022-11eb-8f98-92336106ced4.png)
+
+PageRank는 N개의 node가 존재하는 graph에 각 마디마다 공평하게 1/N의 점수를 줍니다.
+한 step마다 모든 node의 점수는 link들을 따라 연결된 다른 node들로 이동합니다.
+한 node가 두개 이상이라면 점수는 공평히 나누어져 link를 따라 이동합니다.
+이 부분이 위 식의 PR(v)/N_v 입니다.
+Backlinks가 많은 node에는 많은 점수가 모입니다.
+이 과정을 한 번이 아닌 여러 번 수행합니다.
+
+![image](https://user-images.githubusercontent.com/17975141/96291860-abf82c00-1023-11eb-884e-b7fbc6199e3b.png)
+
+이런 과정을 각 마디에 존재하는 점수가 변하지 않는 시점이 생깁니다.
+
+![image](https://user-images.githubusercontent.com/17975141/96291957-d0ec9f00-1023-11eb-8070-c735484f3a34.png)
+
+이 때, 그래프가 Cyclic graph여야만 PageRank를 적용할 수 있습니다.
+즉 다른 마디로부터 들어오는 link는 있지만 다른 마디로 가는 link가 없는 node는 있어서는 안된다는 것입니다.
+이런 상황에서는 문제를 해결하기 위해 각 node에 존재하는 점수의 85%(c=0.85)만큼만 남겨두고 (1-c),15%는 임의의 노드로 보냅니다.
+모든 마디에서 15%의 개미가 다른 마디로 나뉘어서 보내지기 때문에 각 마디는 (1-c)/N의 점수가 새로 유입됩니다.
+이렇게 되면 PageRank의 Bias가 (1-c)/N인 Cyclic graph가 완성됩니다.
+  
+  
+그림으로 요약해보겠습니다.
+  
+![슬라이드1](https://user-images.githubusercontent.com/17975141/96369969-5349a000-1197-11eb-99b9-e18de7e4e265.png)
+
+![슬라이드2](https://user-images.githubusercontent.com/17975141/96361285-56289e80-115f-11eb-8bf1-d5fdad02b654.PNG)
+
+![슬라이드3](https://user-images.githubusercontent.com/17975141/96361291-5cb71600-115f-11eb-9888-951a90ba7065.PNG)
+
+![슬라이드4](https://user-images.githubusercontent.com/17975141/96361293-62acf700-115f-11eb-8a3a-6008b97379ab.PNG)
+
+![슬라이드5](https://user-images.githubusercontent.com/17975141/96361297-693b6e80-115f-11eb-9abe-8b3915222b03.PNG)
+
+![슬라이드6](https://user-images.githubusercontent.com/17975141/96361298-6f314f80-115f-11eb-97c1-e404227f4d2b.PNG)
+
+![슬라이드7](https://user-images.githubusercontent.com/17975141/96361300-75273080-115f-11eb-9360-cde619d48298.PNG)
+
+
 # Textrank
 
-
-
-TextRank 는 키워드 추출 기능과 핵심 문장 추출 기능, 두 가지를 제공합니다. 
-
-
-
-
-
+TextRank는 word graph나 sentence graph를 구축한 뒤, Graph ranking알고리즘인 PageRank를 이용하여 각각 키워드와 핵심 문장을 선택합니다.
+TextRank는 핵심 단어를 선택하기 위해서 단어 간의 co-occurrence graph를 만듭니다. 
+핵심 문장을 선택하기 위해서는 문장 간 유사도를 기반으로 sentence similarity graph를 만듭니다. 
+그 뒤 각각 그래프에 PageRank를 학습하여 각 마디 (단어 혹은 문장) 의 랭킹을 계산합니다. 
+이 랭킹이 높은 순서대로 키워드와 핵심 문장이 됩니다. 
 
 
 ```
@@ -28,19 +102,9 @@ counter는 sent와 sent에 있는 단어의 개수를 체크하여 c가 min_coun
 idx_to_vocab은 key를 x[1]로 하고 key의 값이 큰 순으로 정렬을 합니다.
 idx_to_vocab: [vocab]의 리스트, list에 [idx]로 접근
 vocab_to_idx는 idx_to_vocab의 값에서 idx(순서)와 vocab(단어)를 뽑아냅니다.
-vocab_to_idx: {vocab: idx}의 형태의 딕셔너리.
-
+vocab_to_idx: {vocab: idx}의 형태의 딕셔너리.  
+  
 이제 그래프에 필요한 node들이 생성되었습니다.
-
-
-
-
-
-
-
-
-
-
 
 ```
 from collections import defaultdict
@@ -82,24 +146,19 @@ window = N이라 하면, 특정 단어에서 좌,우로 N개의 단어를 참고
 window가 0보다 작으니 range가 0부터 단어 개수인 n이 되어 모든 단어를 검사하게 됩니다.
 counter로 단어의 개수를 세고, min_coocurrence보다 큰 v의 값을 가진 단어들만 
 min_coocurrence의 값은 최소 유사도로서, min_coocurrence의 값보다 작은 유사도를 가진 단어는 matrix에 포함되지 못하도록 합니다.
-dict_to_mat 함수는 dict of dict 형식의 그래프를 아래와 같은 scipy의 sparse matrix(희소행렬 - 단어수 세기에 좋음)로 변환하는 함수입니다.
+dict_to_mat 함수는 dict of dict 형식의 그래프를 아래와 같은 scipy의 sparse matrix(희소행렬 - 단어수 세기에 좋음)로 변환하는 함수입니다.  
+  
+아래 그래프 값은 co-occurrence입니다. 이 값들이 그래프의 node 값인 R이 됩니다.
 
 ![dd](https://user-images.githubusercontent.com/17975141/96014510-6f8cca80-0e81-11eb-9236-def236b11750.png)
 
-이제 edge들이 생성되었습니다.
-window값에 따라 edge의 개수가 달라집니다. window값이 크면 node의 edge의 개수가 많아집니다.
-그래프가 지나치게 dense(밀집)해지는 것을 방지하고 싶다면 min_coocurrence와 window값을 크게하여 그래프를 sparse(드문드문)하게 만들 수도 있습니다.
+matrix의 column과 index 사이에 값이 있다면 edge가 생깁니다. 이제 edge들이 생성되었습니다.
+window값에 따라 edge의 개수가 달라집니다. window값이 크면 node의 edge의 개수가 많아집니다. 왜냐하면 window가 크면 window 값만큼 선택한 단어 주변 단어들을 검사하기 때문입니다.
+그래프가 지나치게 dense(밀집)해지는 것을 방지하고 싶다면 min_coocurrence와 window값을 크게하여 그래프를 sparse(드문드문)하게 만들 수도 있습니다.    
+그리하여 아래와 같은 그래프를 만들 수 있습니다.
 
 ![graph_wordgraph](https://user-images.githubusercontent.com/17975141/96010842-394d4c00-0e7d-11eb-88c1-f8ed16bc6634.png)
-
-
-
-
-
-
-
-
-
+  
 
 
 TextRank 에서는 명사, 동사, 형용사와 같은 단어만 단어 그래프를 만드는데 이용합니다. 
@@ -117,17 +176,6 @@ def word_graph(sents, tokenize=None, min_count=2, window=2, min_cooccurrence=2):
     g = cooccurrence(tokens, vocab_to_idx, window, min_cooccurrence, verbose)
     return g, idx_to_vocab
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 그 뒤 만들어진 그래프에 PageRank 를 학습하는 함수를 만듭니다. 
 입력되는 x 는 co-occurrence 그래프일 수 있으니, column sum 이 1 이 되도록 L1 normalization 을 합니다. 이를 A 라 합니다. 
@@ -156,11 +204,6 @@ def pagerank(x, df=0.85, max_iter=30):
 ```
 
 
-
-
-
-
-
 이 과정을 정리하면 아래와 같은 textrank_keyword 함수를 만들 수 있습니다.
 
 ```
@@ -171,21 +214,15 @@ def textrank_keyword(sents, tokenize, min_count, window, min_cooccurrence, df=0.
     keywords = [(idx_to_vocab[idx], R[idx]) for idx in reversed(idxs)]
     return keywords
 ```
-
-
-
-
-
-
-
-
-
+  
+  
+  
 
 # 적용
 
-크롤링으로 수집한 인크레더블 영화 댓글 10267개의 keyword를 구합니다.
-
-크롤링한 10267개의 댓글입니다.
+크롤링으로 수집한 인크레더블 영화 댓글 10267개의 keyword를 구합니다.  
+  
+크롤링한 10267개의 댓글입니다.  
 ```
 	|num|	ID|	review|	score
 0|	1|	yski****|	 잭잭이랑 에드나 케미 미쳤닼ㅋㅋㅋ| 	10
@@ -267,11 +304,23 @@ keywords2.to_csv('C:/py36/review_emotion2.csv',encoding='utf-8-sig')
 8|인크레더블/NNP|7.292621322
 9|있/VV|7.158753249
 ```
+  
+  
+뽑아낸 keyword는 세탁소를 대표하는 단어로 나타내어집니다.  
+
+![가게 리스트](https://user-images.githubusercontent.com/17975141/96369881-0e256e00-1197-11eb-837f-13dc8c060b9b.jpg)
+  
+그리고 해쉬태그를 클릭하면 해쉬태그에 해당하는 모든 세탁소 목록이 나옵니다.  
+
+![해쉬태그 클릭](https://user-images.githubusercontent.com/17975141/96369886-11205e80-1197-11eb-933a-cb2cfde82d45.png)
+
+![이중 해쉬태그 검색](https://user-images.githubusercontent.com/17975141/96369888-12ea2200-1197-11eb-8c72-cf7afc97586b.png)
 
 
 
 # refernce
-
-Mihalcea, R., & Tarau, P. (2004). Textrank: Bringing order into text. In Proceedings of the 2004 conference on empirical methods in natural language processing
-Erkan, G., & Radev, D. R. (2004). Lexrank: Graph-based lexical centrality as salience in text summarization. Journal of Artificial Intelligence Research, 22, 457-479
-Barrios, F., López, F., Argerich, L., & Wachenchauzer, R. (2016). Variations of the similarity function of textrank for automated summarization. arXiv preprint arXiv:1602.03606.
+https://excelsior-cjh.tistory.com/93  
+https://lovit.github.io/nlp/2019/04/30/textrank/  
+Mihalcea, R., & Tarau, P. (2004). Textrank: Bringing order into text. In Proceedings of the 2004 conference on empirical methods in natural language processing  
+Erkan, G., & Radev, D. R. (2004). Lexrank: Graph-based lexical centrality as salience in text summarization. Journal of Artificial Intelligence Research, 22, 457-479  
+Barrios, F., López, F., Argerich, L., & Wachenchauzer, R. (2016). Variations of the similarity function of textrank for automated summarization. arXiv preprint arXiv:1602.03606.  
