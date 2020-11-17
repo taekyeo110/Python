@@ -320,7 +320,7 @@ keywords2.to_csv('C:/py36/review_emotion2.csv',encoding='utf-8-sig')
 
 # refernce
 https://excelsior-cjh.tistory.com/93  
-https://lovit.github.io/nlp/2019/04/30/textrank/  
+https://lovit.github.io/nlp/ 
 Mihalcea, R., & Tarau, P. (2004). Textrank: Bringing order into text. In Proceedings of the 2004 conference on empirical methods in natural language processing  
 Erkan, G., & Radev, D. R. (2004). Lexrank: Graph-based lexical centrality as salience in text summarization. Journal of Artificial Intelligence Research, 22, 457-479  
 Barrios, F., López, F., Argerich, L., & Wachenchauzer, R. (2016). Variations of the similarity function of textrank for automated summarization. arXiv preprint arXiv:1602.03606.  
